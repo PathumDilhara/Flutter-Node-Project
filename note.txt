@@ -1,0 +1,5 @@
+Severs must be running,
+
+Open mongodbcompass run/connect server
+
+run command inside server folder (main dir) ---> npm start

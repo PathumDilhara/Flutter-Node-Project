@@ -1,7 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_client/provider/user_provider.dart';
+import 'package:flutter_client/screens/user_list_screen.dart';
+import 'package:provider/provider.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => UserProvider()),
+      ],
+        child: MyApp()
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -11,7 +21,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: Scaffold(body: Center(child: Text("Home Page"),),),
+      home: UserListScreen(),
     );
   }
 }

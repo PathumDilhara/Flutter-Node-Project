@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:flutter_client/models/user_model.dart';
 import 'package:http/http.dart' as http;
 
-const String baseUrl = "http://localhost:5000/api/users";
+const String baseUrl = "http://192.168.211.201:5000/api/users";
 
 class UserServices {
   // Create user - Call to end point that created by node
@@ -23,10 +23,10 @@ class UserServices {
         print('Failed to create user : ${response.statusCode}');
         throw Exception('Failed to create user');
       } else {
-        print('User created successful');
+        print('################ User created successful');
       }
     } catch (err) {
-      print("Error creating user : $err");
+      print("############## Error creating user : $err");
       rethrow;
     }
   }
