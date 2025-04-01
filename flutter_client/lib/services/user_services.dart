@@ -30,4 +30,22 @@ class UserServices {
       rethrow;
     }
   }
+
+  // Method to get all users
+  Future<List<UserModel>> getAllUsers() async {
+    try {
+      final response = await http.get(Uri.parse(baseUrl));
+      if (response.statusCode == 200) {
+        List<dynamic> data = json.decode(response.body);
+
+        return data.map((json) => UserModel.fromJson(json)).toList();
+      } else{
+        print("############ Failed to load users : ${response.statusCode}");
+        throw Exception("Failed to load users");
+      }
+    } catch (err) {
+      print("################# Error fetching users : $err");
+      rethrow;
+    }
+  }
 }
