@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_client/provider/user_provider.dart';
 import 'package:flutter_client/screens/add_user_screen.dart';
+import 'package:flutter_client/screens/edit_users_screen.dart';
 import 'package:provider/provider.dart';
 
 class UserListScreen extends StatelessWidget {
@@ -26,19 +27,32 @@ class UserListScreen extends StatelessWidget {
       body: Consumer<UserProvider>(
         builder: (context, userProvider, child) {
           if (userProvider.users.isEmpty) {
-            return CircularProgressIndicator();
+            return Center(child: CircularProgressIndicator());
           }
           return ListView.builder(
             itemCount: userProvider.users.length,
             itemBuilder: (context, index) {
               final user = userProvider.users[index];
-              return ListTile(title: Text(user.name),
-              subtitle: Text(user.email),
-              trailing: IconButton(
-                // Todo : Delete the user
+              return ListTile(
+                title: Text(user.name),
+                subtitle: Text(user.email),
+                onTap:
+                    () => Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => EditUsersScreen(user: user),
+                      ),
+                    ),
+                trailing: IconButton(
                   onPressed: () {
-                
-              }, icon: Icon(Icons.delete)),);
+                    userProvider.deleteUser(user.id);
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(content: Text("User deleted successfully")),
+                    );
+                  },
+                  icon: Icon(Icons.delete),
+                ),
+              );
             },
           );
         },
